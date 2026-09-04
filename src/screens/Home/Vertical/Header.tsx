@@ -41,10 +41,14 @@ const LeftHeader = () => {
         ...styles.container,
         height: scaleSizeH(HEADER_HEIGHT) + statusBarHeight,
         paddingTop: statusBarHeight,
+        borderBottomColor: theme['c-border-background'],
       }}
     >
       <View style={styles.left}>
-        <TouchableOpacity style={styles.btn} onPress={openMenu}>
+        <TouchableOpacity
+          style={{ ...styles.btn, backgroundColor: theme['c-primary-alpha-900'] }}
+          onPress={openMenu}
+        >
           <Icon color={theme['c-font']} name="menu" size={18} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.titleBtn} onPress={openMenu}>
@@ -83,6 +87,7 @@ const RightHeader = () => {
         ...styles.container,
         height: scaleSizeH(HEADER_HEIGHT) + statusBarHeight,
         paddingTop: statusBarHeight,
+        borderBottomColor: theme['c-border-background'],
       }}
     >
       <View style={styles.left}>
@@ -93,7 +98,10 @@ const RightHeader = () => {
         </TouchableOpacity>
       </View>
       {headerComponents[id] ?? null}
-      <TouchableOpacity style={styles.btn} onPress={openMenu}>
+      <TouchableOpacity
+        style={{ ...styles.btn, backgroundColor: theme['c-primary-alpha-900'] }}
+        onPress={openMenu}
+      >
         <Icon color={theme['c-font']} name="menu" size={18} />
       </TouchableOpacity>
       {/* <TouchableOpacity style={styles.btn} onPress={openSetting}>
@@ -123,6 +131,7 @@ const styles = createStyle({
     alignItems: 'center',
     // backgroundColor: 'rgba(0,0,0,0.1)',
     zIndex: 10,
+    borderBottomWidth: 1,
   },
   left: {
     flex: 1,
@@ -138,6 +147,7 @@ const styles = createStyle({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
+    borderRadius: 22,
   },
   titleBtn: {
     flex: 1,

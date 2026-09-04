@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   image: {
     width: PIC_HEIGHT,
     height: PIC_HEIGHT,
-    borderRadius: 12,
+    borderRadius: PIC_HEIGHT / 2,
+    borderWidth: 2,
   },
 })
 
@@ -45,7 +46,7 @@ export default ({ isHome }: { isHome: boolean }) => {
       <Image
         url={musicInfo.pic}
         nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic}
-        style={styles.image}
+        style={[styles.image, { borderColor: 'rgba(255,255,255,0.28)' }]}
         onError={handleError}
       />
     </TouchableOpacity>

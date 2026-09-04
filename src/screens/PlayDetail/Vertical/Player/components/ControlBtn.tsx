@@ -45,7 +45,7 @@ const TogglePlayBtn = ({ size }: { size: number }) => {
   const isPlay = useIsPlay()
   return (
     <TouchableOpacity
-      style={{ ...styles.cotrolBtn, width: size, height: size }}
+      style={{ ...styles.playBtn, width: size, height: size, backgroundColor: theme['c-primary'] }}
       activeOpacity={0.5}
       onPress={togglePlay}
     >
@@ -95,9 +95,15 @@ const styles = createStyle({
   cotrolBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-
-    // backgroundColor: '#ccc',
     shadowOpacity: 1,
     textShadowRadius: 1,
+  },
+  playBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 999,
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 5,
   },
 })

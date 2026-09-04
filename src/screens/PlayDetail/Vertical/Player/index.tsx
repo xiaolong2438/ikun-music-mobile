@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { View } from 'react-native'
+import { useTheme } from '@/store/theme/hook'
 
 // import Title from './components/Title'
 import MoreBtn from './components/MoreBtn'
@@ -9,8 +10,12 @@ import { createStyle } from '@/utils/tools'
 import { NAV_SHEAR_NATIVE_IDS } from '@/config/constant'
 
 export default memo(() => {
+  const theme = useTheme()
   return (
-    <View style={styles.container} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_player}>
+    <View
+      style={{ ...styles.container, borderTopColor: theme['c-border-background'] }}
+      nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_player}
+    >
       <PlayInfo />
       <ControlBtn />
       <MoreBtn />
@@ -31,6 +36,7 @@ const styles = createStyle({
     // backgroundColor: AppColors.primary,
     // backgroundColor: 'red',
     flexDirection: 'column',
+    borderTopWidth: 1,
   },
   status: {
     marginTop: 10,

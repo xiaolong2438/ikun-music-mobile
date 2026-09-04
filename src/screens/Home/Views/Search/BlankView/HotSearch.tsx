@@ -27,7 +27,11 @@ const ListItem = ({
   const theme = useTheme()
   return (
     <Button
-      style={{ ...styles.button, backgroundColor: theme['c-button-background'] }}
+      style={{
+        ...styles.button,
+        backgroundColor: theme['c-button-background'],
+        borderColor: theme['c-border-background'],
+      }}
       onPress={() => {
         onSearch(keyword)
       }}
@@ -100,7 +104,8 @@ const styles = createStyle({
     paddingRight: 10,
     paddingTop: 5,
     paddingBottom: 5,
-    borderRadius: 4,
+    borderRadius: 999,
+    borderWidth: 1,
     marginRight: 10,
     marginTop: 8,
   },

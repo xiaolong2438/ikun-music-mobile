@@ -23,10 +23,10 @@ const Title = () => {
 
   return (
     <View style={styles.titleContent}>
-      <Text numberOfLines={1} style={styles.title}>
+      <Text numberOfLines={1} style={styles.title} size={15}>
         {musicInfo.name}
       </Text>
-      <Text numberOfLines={1} style={styles.title} size={12} color={theme['c-font-label']}>
+      <Text numberOfLines={1} style={styles.artist} size={12} color={theme['c-font-label']}>
         {musicInfo.singer}
       </Text>
     </View>
@@ -74,8 +74,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    // flex: 1,
-    // textAlign: 'center',
+    fontWeight: '600',
+  },
+  artist: {
+    marginTop: 1,
   },
   icon: {
     paddingLeft: 4,

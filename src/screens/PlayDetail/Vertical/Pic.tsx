@@ -38,8 +38,19 @@ export default ({ componentId }: { componentId: string }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ ...styles.content, elevation: animated ? 3 : 0 }}>
-        <Image url={pic} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic} style={style} />
+      <View
+        style={{
+          ...styles.content,
+          elevation: animated ? 6 : 0,
+          backgroundColor: 'rgba(255,255,255,0.12)',
+          borderColor: 'rgba(255,255,255,0.2)',
+        }}
+      >
+        <Image
+          url={pic}
+          nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic}
+          style={{ ...style, borderRadius: style.width / 2 }}
+        />
       </View>
     </View>
   )
@@ -54,8 +65,8 @@ const styles = createStyle({
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
   content: {
-    // elevation: 3,
-    backgroundColor: 'rgba(0,0,0,0)',
-    borderRadius: 4,
+    padding: 10,
+    borderRadius: 999,
+    borderWidth: 1,
   },
 })

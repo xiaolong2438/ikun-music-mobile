@@ -17,7 +17,13 @@ export default memo(({ isHome = false }: { isHome?: boolean }) => {
 
   const playerComponent = useMemo(
     () => (
-      <View style={{ ...styles.container, backgroundColor: theme['c-content-background'] }}>
+      <View
+        style={{
+          ...styles.container,
+          backgroundColor: theme['c-content-background'],
+          borderColor: theme['c-border-background'],
+        }}
+      >
         <Pic isHome={isHome} />
         <View style={styles.center}>
           <Title isHome={isHome} />
@@ -36,18 +42,20 @@ export default memo(({ isHome = false }: { isHome?: boolean }) => {
 
 const styles = createStyle({
   container: {
-    width: '100%',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    width: '96%',
+    alignSelf: 'center',
+    marginBottom: 6,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 18,
+    borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    elevation: 12,
+    elevation: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: 10,
   },
   center: {
     flexDirection: 'column',

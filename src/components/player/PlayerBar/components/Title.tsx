@@ -1,7 +1,6 @@
 import { View, TouchableOpacity } from 'react-native'
 import { navigations } from '@/navigation'
 import { usePlayerMusicInfo } from '@/store/player/hook'
-import { useSettingValue } from '@/store/setting/hook'
 import { useTheme } from '@/store/theme/hook'
 import commonState from '@/store/common/state'
 import playerState from '@/store/player/state'
@@ -11,7 +10,6 @@ import { createStyle } from '@/utils/tools'
 
 export default ({ isHome }: { isHome: boolean }) => {
   const musicInfo = usePlayerMusicInfo()
-  const downloadFileName = useSettingValue('download.fileName')
   const theme = useTheme()
 
   const handlePress = () => {
@@ -25,12 +23,6 @@ export default ({ isHome }: { isHome: boolean }) => {
     global.app_event.jumpListPosition()
   }
 
-  const title = musicInfo.id
-    ? musicInfo.singer
-      ? downloadFileName.replace('歌手', musicInfo.singer).replace('歌名', musicInfo.name)
-      : musicInfo.name
-    : ''
-
   const singer = musicInfo.id ? musicInfo.singer : ''
 
   return (
@@ -41,11 +33,11 @@ export default ({ isHome }: { isHome: boolean }) => {
       activeOpacity={0.7}
     >
       <View style={styles.textContainer}>
-        <Text style={styles.title} color={theme['c-font']} numberOfLines={1} size={15}>
+        <Text style={styles.title} color={theme['c-font']} numberOfLines={1} size={14}>
           {musicInfo.name || ''}
         </Text>
         {singer ? (
-          <Text style={styles.artist} color={theme['c-font-label']} numberOfLines={1} size={13}>
+          <Text style={styles.artist} color={theme['c-font-label']} numberOfLines={1} size={12}>
             {singer}
           </Text>
         ) : null}

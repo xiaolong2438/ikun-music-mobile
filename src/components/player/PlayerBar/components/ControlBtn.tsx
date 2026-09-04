@@ -39,7 +39,11 @@ const TogglePlayBtn = () => {
   const theme = useTheme()
 
   return (
-    <TouchableOpacity style={styles.playBtn} activeOpacity={0.5} onPress={togglePlay}>
+    <TouchableOpacity
+      style={{ ...styles.playBtn, backgroundColor: theme['c-primary'] }}
+      activeOpacity={0.5}
+      onPress={togglePlay}
+    >
       <Icon name={isPlay ? 'pause' : 'play'} color={theme['c-button-font']} size={BTN_SIZE + 4} />
     </TouchableOpacity>
   )
@@ -70,5 +74,6 @@ const styles = createStyle({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 4,
+    borderRadius: 22,
   },
 })

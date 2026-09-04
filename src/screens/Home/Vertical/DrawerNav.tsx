@@ -40,12 +40,14 @@ const styles = createStyle({
   },
   menuItem: {
     flexDirection: 'row',
+    marginHorizontal: 10,
+    marginVertical: 3,
     paddingTop: 13,
     paddingBottom: 13,
-    paddingLeft: 25,
-    paddingRight: 25,
+    paddingLeft: 15,
+    paddingRight: 15,
     alignItems: 'center',
-    // backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    borderRadius: 14,
   },
   iconContent: {
     width: 24,
@@ -93,7 +95,7 @@ const MenuItem = ({
   const theme = useTheme()
 
   return activeId == id ? (
-    <View style={styles.menuItem}>
+    <View style={{ ...styles.menuItem, backgroundColor: theme['c-primary-alpha-900'] }}>
       <View style={styles.iconContent}>
         <Icon name={icon} size={20} color={theme['c-primary-font-active']} />
       </View>
