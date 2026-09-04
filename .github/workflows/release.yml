@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+# The workflow creates a tag and publishes a GitHub Release.
+permissions:
+  contents: write
+
 jobs:
   Android:
     name: Android
