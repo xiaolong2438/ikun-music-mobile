@@ -15,6 +15,7 @@ import { getList, setPlayMusicInfo, setMusicInfo, setPlayListId } from '@/core/p
 import { clearPlayedList, addPlayedList, removePlayedList } from '@/core/player/playedList'
 import { clearTempPlayeList, removeTempPlayList } from '@/core/player/tempPlayList'
 import { getMusicUrl, getPicPath, getLyricInfo } from '@/core/music'
+import { getPreferredLocalMusicPath } from '@/core/music/localMatch'
 import { requestMsg } from '@/utils/message'
 import { getRandom } from '@/utils/common'
 import { filterList } from './utils'
@@ -115,8 +116,18 @@ const getMusicPlayUrl = async (
   addLoadTimeout()
 
   // const type = getPlayType(settingState.setting['player.isPlayHighQuality'], musicInfo)
-  let toggleMusicInfo = ('progress' in musicInfo ? musicInfo.metadata.musicInfo : musicInfo).meta
-    .toggleMusicInfo
+  const onlineMusicInfo = 'progress' in musicInfo ? musicInfo.metadata.musicInfo : musicInfo
+  let toggleMusicInfo = onlineMusicInfo.meta.toggleMusicInfo
+
+  // 在线歌曲播放前，优先查找已导入且仍可访问的同曲本地文件。
+  // 本地条目本身仍由 core/music/local.ts 直接播放，不会进入这里。
+  if (!isRefresh && onlineMusicInfo.source != 'local') {
+    const localPath = await getPreferredLocalMusicPath(onlineMusicInfo).catch(() => null)
+    if (localPath) {
+      if (global.lx.isPlayedStop || diffCurrentMusicInfo(musicInfo)) return null
+      return localPath
+    }
+  }
 
   return (
     toggleMusicInfo

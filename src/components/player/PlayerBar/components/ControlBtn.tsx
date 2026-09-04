@@ -6,7 +6,7 @@ import { playNext, playPrev, togglePlay } from '@/core/player/player'
 import { createStyle } from '@/utils/tools'
 import { useHorizontalMode } from '@/utils/hooks'
 
-const BTN_SIZE = 24
+const BTN_SIZE = 28
 const handlePlayPrev = () => {
   void playPrev()
 }
@@ -39,8 +39,8 @@ const TogglePlayBtn = () => {
   const theme = useTheme()
 
   return (
-    <TouchableOpacity style={styles.cotrolBtn} activeOpacity={0.5} onPress={togglePlay}>
-      <Icon name={isPlay ? 'pause' : 'play'} color={theme['c-button-font']} size={BTN_SIZE} />
+    <TouchableOpacity style={styles.playBtn} activeOpacity={0.5} onPress={togglePlay}>
+      <Icon name={isPlay ? 'pause' : 'play'} color={theme['c-button-font']} size={BTN_SIZE + 4} />
     </TouchableOpacity>
   )
 }
@@ -49,13 +49,6 @@ export default () => {
   const isHorizontalMode = useHorizontalMode()
   return (
     <>
-      {/* <TouchableOpacity activeOpacity={0.5} onPress={toggleNextPlayMode}>
-        <Text style={{ ...styles.cotrolBtn }}>
-          <Icon name={playModeIcon} style={{ color: theme.secondary10 }} size={18} />
-        </Text>
-      </TouchableOpacity>
-    */}
-      {/* {btnPrev} */}
       {isHorizontalMode ? <PlayPrevBtn /> : null}
       <TogglePlayBtn />
       <PlayNextBtn />
@@ -65,13 +58,17 @@ export default () => {
 
 const styles = createStyle({
   cotrolBtn: {
-    width: 46,
-    height: 46,
+    width: 44,
+    height: 44,
     justifyContent: 'center',
     alignItems: 'center',
-
-    // backgroundColor: '#ccc',
-    shadowOpacity: 1,
-    textShadowRadius: 1,
+    marginLeft: 4,
+  },
+  playBtn: {
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 4,
   },
 })

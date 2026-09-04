@@ -7,12 +7,10 @@ import Title from './components/Title'
 import PlayInfo from './components/PlayInfo'
 import ControlBtn from './components/ControlBtn'
 import { createStyle } from '@/utils/tools'
-// import { useSettingValue } from '@/store/setting/hook'
 import { useTheme } from '@/store/theme/hook'
 import { useSettingValue } from '@/store/setting/hook'
 
 export default memo(({ isHome = false }: { isHome?: boolean }) => {
-  // const { onLayout, ...layout } = useLayout()
   const { keyboardShown } = useKeyboard()
   const theme = useTheme()
   const autoHidePlayBar = useSettingValue('common.autoHidePlayBar')
@@ -23,9 +21,6 @@ export default memo(({ isHome = false }: { isHome?: boolean }) => {
         <Pic isHome={isHome} />
         <View style={styles.center}>
           <Title isHome={isHome} />
-          {/* <View style={{ ...styles.row, justifyContent: 'space-between' }}>
-          <PlayTime />
-        </View> */}
           <PlayInfo isHome={isHome} />
         </View>
         <View style={styles.right}>
@@ -36,55 +31,36 @@ export default memo(({ isHome = false }: { isHome?: boolean }) => {
     [theme, isHome]
   )
 
-  // console.log('render pb')
-
   return autoHidePlayBar && keyboardShown ? null : playerComponent
 })
 
 const styles = createStyle({
   container: {
     width: '100%',
-    // height: 100,
-    // paddingTop: progressContentPadding,
-    // marginTop: -progressContentPadding,
-    // backgroundColor: 'rgba(0, 0, 0, .1)',
-    // borderTopWidth: BorderWidths.normal2,
-    paddingVertical: 5,
-    paddingLeft: 5,
-    // backgroundColor: AppColors.primary,
-    // backgroundColor: 'red',
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    elevation: 10,
-  },
-  left: {
-    // borderRadius: 3,
-    flexGrow: 0,
-    flexShrink: 0,
+    elevation: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
   },
   center: {
     flexDirection: 'column',
     flexGrow: 1,
     flexShrink: 1,
-    paddingLeft: 5,
+    paddingLeft: 12,
     height: '100%',
-    // justifyContent: 'space-evenly',
-    // height: 48,
-    // backgroundColor: 'rgba(0, 0, 0, .1)',
   },
   right: {
     flexDirection: 'row',
     alignItems: 'center',
     flexGrow: 0,
     flexShrink: 0,
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 8,
   },
-  // row: {
-  //   flexDirection: 'row',
-  //   flexGrow: 0,
-  //   flexShrink: 0,
-  // },
 })

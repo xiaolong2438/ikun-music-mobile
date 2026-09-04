@@ -32,6 +32,7 @@ const ListItem = memo(
     activeId,
     onPress,
     onShowMenu,
+    onQuickImport,
   }: {
     onPress: (item: LX.List.MyListInfo) => void
     index: number
@@ -42,9 +43,15 @@ const ListItem = memo(
       index: number,
       position: { x: number; y: number; w: number; h: number }
     ) => void
+    onQuickImport: (
+      item: LX.List.MyListInfo,
+      index: number,
+      position: { x: number; y: number; w: number; h: number }
+    ) => void
   }) => {
     const theme = useTheme()
     const moreButtonRef = useRef<TouchableOpacity>(null)
+    const importButtonRef = useRef<TouchableOpacity>(null)
     const fetching = useListFetching(item.id)
 
     const active = activeId == item.id
@@ -54,6 +61,19 @@ const ListItem = memo(
         moreButtonRef.current.measure((fx, fy, width, height, px, py) => {
           // console.log(fx, fy, width, height, px, py)
           onShowMenu(item, index, {
+            x: Math.ceil(px),
+            y: Math.ceil(py),
+            w: Math.ceil(width),
+            h: Math.ceil(height),
+          })
+        })
+      }
+    }
+
+    const handleQuickImport = () => {
+      if (importButtonRef.current?.measure) {
+        importButtonRef.current.measure((fx, fy, width, height, px, py) => {
+          onQuickImport(item, index, {
             x: Math.ceil(px),
             y: Math.ceil(py),
             w: Math.ceil(width),
@@ -88,6 +108,14 @@ const ListItem = memo(
             {item.name}
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleQuickImport}
+          ref={importButtonRef}
+          style={styles.listImportBtn}
+          disabled={fetching}
+        >
+          <Icon name="add-music" color={theme['c-350']} size={16} />
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleShowMenu} ref={moreButtonRef} style={styles.listMoreBtn}>
           <Icon name="dots-vertical" color={theme['c-350']} size={12} />
         </TouchableOpacity>
@@ -107,8 +135,10 @@ const ListItem = memo(
 
 export default ({
   onShowMenu,
+  onShowImportMenu,
 }: {
   onShowMenu: (info: { listInfo: LX.List.MyListInfo; index: number }, position: Position) => void
+  onShowImportMenu: (info: { listInfo: LX.List.MyListInfo; index: number }, position: Position) => void
 }) => {
   const flatListRef = useRef<FlatList>(null)
   const allList = useMyList()
@@ -130,6 +160,10 @@ export default ({
     onShowMenu({ listInfo, index }, position)
   }
 
+  const showImportMenu = (listInfo: LX.List.MyListInfo, index: number, position: Position) => {
+    onShowImportMenu({ listInfo, index }, position)
+  }
+
   useEffect(() => {
     void getListPosition(LIST_SCROLL_POSITION_KEY).then((offset) => {
       flatListRef.current?.scrollToOffset({ offset, animated: false })
@@ -144,6 +178,7 @@ export default ({
       activeId={activeListId}
       onPress={handleToggleList}
       onShowMenu={showMenu}
+      onQuickImport={showImportMenu}
     />
   )
   const getkey: FlatListType['keyExtractor'] = (item) => item.id
@@ -220,5 +255,12 @@ const styles = createStyle({
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: 'rgba(0,0,0,0.1)',
+  },
+  listImportBtn: {
+    height: '100%',
+    width: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 4,
   },
 })

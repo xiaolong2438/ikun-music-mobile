@@ -9,25 +9,21 @@ import Image from '@/components/common/Image'
 import { useCallback } from 'react'
 import { setLoadErrorPicUrl, setMusicInfo } from '@/core/player/playInfo'
 
-const PIC_HEIGHT = scaleSizeH(46)
+const PIC_HEIGHT = scaleSizeH(56)
 
 const styles = StyleSheet.create({
   image: {
     width: PIC_HEIGHT,
     height: PIC_HEIGHT,
-    borderRadius: 2,
+    borderRadius: 12,
   },
 })
 
 export default ({ isHome }: { isHome: boolean }) => {
   const musicInfo = usePlayerMusicInfo()
   const handlePress = () => {
-    // console.log('')
-    // console.log(playMusicInfo)
     if (!musicInfo.id) return
     navigations.pushPlayDetailScreen(commonState.componentIds.home!)
-
-    // toast(global.i18n.t('play_detail_todo_tip'), 'long')
   }
 
   const handleLongPress = () => {
@@ -55,9 +51,3 @@ export default ({ isHome }: { isHome: boolean }) => {
     </TouchableOpacity>
   )
 }
-
-// const styles = StyleSheet.create({
-//   playInfoImg: {
-
-//   },
-// })

@@ -88,16 +88,17 @@ export default forwardRef<ListMenuType, ListMenuProps>(
       }
 
       setMenus([
-        { action: 'new', label: t('list_create') },
-        { action: 'rename', disabled: !rename, label: t('list_rename') },
-        { action: 'sort', label: t('list_sort') },
-        { action: 'duplicateMusic', label: t('lists__duplicate') },
-        { action: 'local_file', disabled: !local_file, label: t('list_select_local_file') },
-        { action: 'sync', disabled: !sync || !local_file, label: t('list_sync') },
-        { action: 'import', label: t('list_import') },
-        { action: 'export', label: t('list_export') },
-        // { action: 'changePosition', label: t('change_position') },
-        { action: 'remove', disabled: !remove, label: t('list_remove') },
+        { action: 'new', label: t('list_create'), icon: 'add-music' },
+        { action: 'rename', disabled: !rename, label: t('list_rename'), icon: 'eraser' },
+        { action: 'sort', label: t('list_sort'), icon: 'list-order' },
+        { action: 'duplicateMusic', label: t('lists__duplicate'), icon: 'album' },
+        { action: 'divider' },
+        { action: 'local_file', disabled: !local_file, label: t('list_select_local_file'), icon: 'add_folder' },
+        { action: 'import', label: t('list_import'), icon: 'add-music' },
+        { action: 'export', label: t('list_export'), icon: 'share' },
+        { action: 'sync', disabled: !sync || !local_file, label: t('list_sync'), icon: 'available_updates' },
+        { action: 'divider' },
+        { action: 'remove', disabled: !remove, label: t('list_remove'), icon: 'remove' },
       ])
     }
 

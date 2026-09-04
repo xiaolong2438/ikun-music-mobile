@@ -6,6 +6,9 @@ export declare interface BoardItem {
   id: string
   name: string
   bangid: string
+  desc?: string
+  playCount?: number
+  isHot?: boolean
 }
 export declare interface Board {
   list: BoardItem[]

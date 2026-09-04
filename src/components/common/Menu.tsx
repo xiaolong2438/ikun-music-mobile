@@ -1,5 +1,5 @@
 import { useImperativeHandle, forwardRef, useMemo, useRef, useState, type Ref } from 'react'
-import { View, Animated, TouchableHighlight } from 'react-native'
+import { View, Animated, TouchableOpacity } from 'react-native'
 import { useWindowSize } from '@/utils/hooks'
 
 import Modal, { type ModalType } from './Modal'
@@ -8,9 +8,10 @@ import { createStyle } from '@/utils/tools'
 import { useTheme } from '@/store/theme/hook'
 import Text from './Text'
 import { scaleSizeH, scaleSizeW } from '@/utils/pixelRatio'
+import { Icon } from './Icon'
 
-const menuItemHeight = scaleSizeH(40)
-const menuItemWidth = scaleSizeW(100)
+const menuItemHeight = scaleSizeH(52)
+const menuItemWidth = scaleSizeW(140)
 
 export interface Position {
   w: number
@@ -24,7 +25,7 @@ export interface MenuSize {
   width?: number
   height?: number
 }
-export type Menus = Readonly<Array<{ action: string; label: string; disabled?: boolean }>>
+export type Menus = Readonly<Array<{ action: string; label?: string; disabled?: boolean; icon?: string }>>
 
 const styles = createStyle({
   mask: {
@@ -38,25 +39,32 @@ const styles = createStyle({
   },
   menu: {
     position: 'absolute',
-    // borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'lightgray',
-    borderRadius: 2,
+    borderRadius: 16,
     backgroundColor: 'white',
-    elevation: 3,
+    elevation: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    overflow: 'hidden',
   },
   menuItem: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    // height: menuItemHeight,
-    // width: menuItemWidth,
-    // alignItems: 'center',
-    justifyContent: 'center',
-    // backgroundColor: '#ccc',
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
-  // menuText: {
-  //   // textAlign: 'center',
-  //   fontSize: 14,
-  // },
+  menuItemText: {
+    flex: 1,
+  },
+  separator: {
+    height: 0.5,
+    marginHorizontal: 12,
+    opacity: 0.15,
+  },
+  divider: {
+    height: 8,
+  },
 })
 
 interface Props<M extends Menus = Menus> {
@@ -86,8 +94,6 @@ const Menu = ({
 }: Props) => {
   const theme = useTheme()
   const windowSize = useWindowSize()
-  // const fadeAnim = useRef(new Animated.Value(0)).current
-  // console.log(buttonPosition)
 
   const menuItemStyle = useMemo(() => {
     return {
@@ -97,7 +103,8 @@ const Menu = ({
   }, [menuSize, width, height])
 
   const menuStyle = useMemo(() => {
-    let menuHeight = menus.length * menuItemStyle.height
+    const validMenus = menus.filter(m => m.action !== 'divider')
+    let menuHeight = validMenus.length * menuItemStyle.height + menus.filter(m => m.action === 'divider').length * 8
     const topHeight = buttonPosition.y - 20
     const bottomHeight = windowSize.height - buttonPosition.y - buttonPosition.h - 20
     if (menuHeight > topHeight && menuHeight > bottomHeight)
@@ -107,7 +114,7 @@ const Menu = ({
     const bottomSpace = windowSize.height - buttonPosition.y - buttonPosition.h - 20
     const rightSpace = windowSize.width - buttonPosition.x - menuWidth
     const showInBottom = bottomSpace >= menuHeight
-    const showInRight = rightSpace >= menuWidth
+    const showInRight = rightSpace >= 0
     const frameStyle: {
       height: number
       width: number
@@ -116,7 +123,7 @@ const Menu = ({
       right?: number
     } = {
       height: menuHeight,
-      top: showInBottom ? buttonPosition.y + buttonPosition.h : buttonPosition.y - menuHeight,
+      top: showInBottom ? buttonPosition.y + buttonPosition.h + 8 : buttonPosition.y - menuHeight - 8,
       width: menuWidth,
     }
     if (showInRight) {
@@ -125,84 +132,96 @@ const Menu = ({
       frameStyle.right = windowSize.width - buttonPosition.x - buttonPosition.w
     }
     return frameStyle
-  }, [menus.length, menuItemStyle, buttonPosition, windowSize])
+  }, [menus, menuItemStyle, buttonPosition, windowSize])
 
   const menuPress = (menu: Menus[number]) => {
-    // if (menu.disabled) return
     onPress(menu)
     onHide()
   }
 
-  // console.log('render menu')
-  // console.log(activeId)
-  // console.log(menuStyle)
-  // console.log(menuItemStyle)
   return (
     <View
-      style={{ ...styles.menu, ...menuStyle, backgroundColor: theme['c-content-background'] }}
+      style={{
+        ...styles.menu,
+        ...menuStyle,
+        backgroundColor: theme['c-content-background'],
+      }}
       onStartShouldSetResponder={() => true}
     >
-      <Animated.ScrollView keyboardShouldPersistTaps={'always'}>
-        {menus.map((menu, index) =>
-          menu.disabled ? (
-            <View
-              key={menu.action}
-              style={{
-                ...styles.menuItem,
-                width: menuItemStyle.width,
-                height: menuItemStyle.height,
-                opacity: 0.4,
-              }}
-            >
-              <Text
-                style={{ textAlign: center ? 'center' : 'left' }}
-                size={fontSize}
-                numberOfLines={1}
-              >
-                {menu.label}
-              </Text>
+      <Animated.ScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false}>
+        {menus.map((menu, index) => {
+          if (menu.action === 'divider') {
+            return <View key={`divider-${index}`} style={styles.divider} />
+          }
+
+          return (
+            <View key={menu.action}>
+              {menu.disabled ? (
+                <View
+                  style={{
+                    ...styles.menuItem,
+                    width: menuItemStyle.width,
+                    height: menuItemStyle.height,
+                    opacity: 0.4,
+                  }}
+                >
+                  {menu.icon && <Icon name={menu.icon} size={20} color={theme['c-font']} />}
+                  <Text
+                    style={{ ...styles.menuItemText, textAlign: center ? 'center' : 'left' }}
+                    size={fontSize}
+                    numberOfLines={1}
+                  >
+                    {menu.label}
+                  </Text>
+                </View>
+              ) : menu.action == activeId ? (
+                <TouchableOpacity
+                  style={{
+                    ...styles.menuItem,
+                    width: menuItemStyle.width,
+                    height: menuItemStyle.height,
+                  }}
+                  activeOpacity={0.6}
+                  onPress={() => menuPress(menu)}
+                >
+                  {menu.icon && <Icon name={menu.icon} size={20} color={theme['c-primary-font-active']} />}
+                  <Text
+                    style={{ ...styles.menuItemText, textAlign: center ? 'center' : 'left', fontWeight: '600' }}
+                    color={theme['c-primary-font-active']}
+                    size={fontSize}
+                    numberOfLines={1}
+                  >
+                    {menu.label}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    ...styles.menuItem,
+                    width: menuItemStyle.width,
+                    height: menuItemStyle.height,
+                  }}
+                  activeOpacity={0.6}
+                  onPress={() => {
+                    menuPress(menu)
+                  }}
+                >
+                  {menu.icon && <Icon name={menu.icon} size={20} color={theme['c-font']} />}
+                  <Text
+                    style={{ ...styles.menuItemText, textAlign: center ? 'center' : 'left' }}
+                    size={fontSize}
+                    numberOfLines={1}
+                  >
+                    {menu.label}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              {index < menus.length - 1 && menus[index + 1]?.action !== 'divider' && (
+                <View style={{ ...styles.separator, backgroundColor: theme['c-font'] }} />
+              )}
             </View>
-          ) : menu.action == activeId ? (
-            <View
-              key={menu.action}
-              style={{
-                ...styles.menuItem,
-                width: menuItemStyle.width,
-                height: menuItemStyle.height,
-              }}
-            >
-              <Text
-                style={{ textAlign: center ? 'center' : 'left' }}
-                color={theme['c-primary-font-active']}
-                size={fontSize}
-                numberOfLines={1}
-              >
-                {menu.label}
-              </Text>
-            </View>
-          ) : (
-            <TouchableHighlight
-              key={menu.action}
-              style={{
-                ...styles.menuItem,
-                width: menuItemStyle.width,
-                height: menuItemStyle.height,
-              }}
-              underlayColor={theme['c-primary-background-active']}
-              onPress={() => {
-                menuPress(menu)
-              }}
-            >
-              <Text
-                style={{ textAlign: center ? 'center' : 'left' }}
-                size={fontSize}
-                numberOfLines={1}
-              >
-                {menu.label}
-              </Text>
-            </TouchableHighlight>
           )
-        )}
+        })}
       </Animated.ScrollView>
     </View>
   )
@@ -228,7 +247,6 @@ const Component = <M extends Menus>(
   { menus, width, height, activeId, onHide, onPress, fontSize, center }: MenuProps<M>,
   ref: Ref<MenuType>
 ) => {
-  // console.log(visible)
   const modalRef = useRef<ModalType>(null)
   const [position, setPosition] = useState<Position>({ w: 0, h: 0, x: 0, y: 0 })
   const [menuSize, setMenuSize] = useState<MenuSize>({})
@@ -264,7 +282,6 @@ const Component = <M extends Menus>(
   )
 }
 
-// export default forwardRef(Component) as ForwardRefFn<MenuType>
 export default forwardRef(Component) as <M extends Menus>(
   p: MenuProps<M> & { ref?: Ref<MenuType> }
 ) => JSX.Element | null

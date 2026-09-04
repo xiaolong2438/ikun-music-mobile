@@ -1,16 +1,10 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react'
 import { View } from 'react-native'
 
-// import { useGetter, useDispatch } from '@/store'
-// import Tag from './Tag'
-// import OpenList from './OpenList'
 import { createStyle } from '@/utils/tools'
-// import { BorderWidths } from '@/theme'
 import SourceSelector, { type SourceSelectorType } from './SourceSelector'
 import { useTheme } from '@/store/theme/hook'
-// import { BorderWidths } from '@/theme'
 import ActiveListName, { type ActiveListNameType } from './ActiveListName'
-import { BorderWidths } from '@/theme'
 
 export interface HeaderBarProps {
   onShowBound: () => void
@@ -38,7 +32,7 @@ export default forwardRef<HeaderBarType, HeaderBarProps>(({ onShowBound, onSourc
   )
 
   return (
-    <View style={{ ...styles.currentList, borderBottomColor: theme['c-border-background'] }}>
+    <View style={{ ...styles.currentList, backgroundColor: theme['c-content-background'] }}>
       <SourceSelector ref={sourceSelectorRef} onSourceChange={onSourceChange} />
       <ActiveListName ref={activeListNameRef} onShowBound={onShowBound} />
     </View>
@@ -48,12 +42,14 @@ export default forwardRef<HeaderBarType, HeaderBarProps>(({ onShowBound, onSourc
 const styles = createStyle({
   currentList: {
     flexDirection: 'row',
-    height: 38,
+    height: 56,
     zIndex: 2,
-    // paddingRight: 10,
-    borderBottomWidth: BorderWidths.normal,
-  },
-  selector: {
-    width: 86,
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
   },
 })

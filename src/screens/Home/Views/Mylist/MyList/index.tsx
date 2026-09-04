@@ -6,6 +6,7 @@ import ListImportExport, { type ListImportExportType } from './ListImportExport'
 import { handleRemove, handleSync } from './listAction'
 import ListMusicSort, { type ListMusicSortType } from './ListMusicSort'
 import DuplicateMusic, { type DuplicateMusicType } from './DuplicateMusic'
+import QuickImportMenu, { type QuickImportMenuType } from './QuickImportMenu'
 
 export default () => {
   const [visible, setVisible] = useState(false)
@@ -14,6 +15,7 @@ export default () => {
   const listMusicSortRef = useRef<ListMusicSortType>(null)
   const duplicateMusicRef = useRef<DuplicateMusicType>(null)
   const listImportExportRef = useRef<ListImportExportType>(null)
+  const quickImportMenuRef = useRef<QuickImportMenuType>(null)
 
   useEffect(() => {
     let isInited = false
@@ -34,11 +36,21 @@ export default () => {
 
   return visible ? (
     <>
-      <List onShowMenu={(info, position) => listMenuRef.current?.show(info, position)} />
+      <List
+        onShowMenu={(info, position) => listMenuRef.current?.show(info, position)}
+        onShowImportMenu={(info, position) => quickImportMenuRef.current?.show(info, position)}
+      />
       <ListNameEdit ref={listNameEditRef} />
       <ListMusicSort ref={listMusicSortRef} />
       <DuplicateMusic ref={duplicateMusicRef} />
       <ListImportExport ref={listImportExportRef} />
+      <QuickImportMenu
+        ref={quickImportMenuRef}
+        onImportFile={(info, position) => listImportExportRef.current?.import(info, position)}
+        onSelectLocalFile={(info, position) =>
+          listImportExportRef.current?.selectFile(info, position)
+        }
+      />
       <ListMenu
         ref={listMenuRef}
         onNew={(index) => listNameEditRef.current?.showCreate(index)}
