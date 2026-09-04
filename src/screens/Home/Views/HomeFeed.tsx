@@ -92,7 +92,7 @@ const HomeFeed = () => {
       <TouchableOpacity
         style={{ ...styles.searchBar, backgroundColor: theme['c-primary-background'] }}
         activeOpacity={0.8}
-        onPress={() => setNavActiveId('nav_songlist')}
+        onPress={() => setNavActiveId('nav_search')}
       >
         <Icon name="search-2" color={theme['c-450']} size={18} />
         <Text style={styles.searchText} color={theme['c-450']}>

@@ -181,13 +181,21 @@ const SettingPage = () => {
 }
 
 const viewMap = {
-  nav_search: 0,
-  nav_songlist: 1,
-  nav_top: 2,
-  nav_love: 3,
-  nav_setting: 4,
+  nav_home: 0,
+  nav_search: 1,
+  nav_songlist: 2,
+  nav_top: 3,
+  nav_love: 4,
+  nav_setting: 5,
 }
-const indexMap = ['nav_search', 'nav_songlist', 'nav_top', 'nav_love', 'nav_setting'] as const
+const indexMap = [
+  'nav_home',
+  'nav_search',
+  'nav_songlist',
+  'nav_top',
+  'nav_love',
+  'nav_setting',
+] as const
 
 const Main = () => {
   const pagerViewRef = useRef<ComponentRef<typeof PagerView>>(null)
@@ -277,8 +285,11 @@ const Main = () => {
         scrollEnabled={settingState.setting['common.homePageScroll']}
         style={styles.pagerView}
       >
-        <View key="home-feed" collapsable={false} style={styles.pageStyle}>
+        <View collapsable={false} key="nav_home" style={styles.pageStyle}>
           <HomeFeed />
+        </View>
+        <View collapsable={false} key="nav_search" style={styles.pageStyle}>
+          <SearchPage />
         </View>
         <View collapsable={false} key="nav_songlist" style={styles.pageStyle}>
           <SongListPage />

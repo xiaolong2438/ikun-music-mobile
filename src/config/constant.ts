@@ -97,6 +97,7 @@ export const storageDataPrefixOld = {
 export const APP_PROVIDER_NAME = 'com.ikunshare.music.mobile.provider'
 
 export const NAV_MENUS = [
+  { id: 'nav_home', icon: 'home' },
   { id: 'nav_search', icon: 'search-2' },
   { id: 'nav_songlist', icon: 'album' },
   { id: 'nav_top', icon: 'leaderboard' },
@@ -146,7 +147,7 @@ export const DEFAULT_SETTING = {
   },
 
   viewPrevState: {
-    id: 'nav_search' as NAV_ID_Type,
+    id: 'nav_home' as NAV_ID_Type,
     // query: {},
   },
 }

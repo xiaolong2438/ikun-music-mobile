@@ -40,7 +40,7 @@ const LeftHeader = () => {
     >
       <View style={styles.left}>
         <Text style={styles.leftTitle} size={18}>
-          {t(id)}
+          {id == 'nav_home' ? '首页' : t(id)}
         </Text>
       </View>
       {headerComponents[id] ?? null}
@@ -73,7 +73,7 @@ const RightHeader = () => {
     >
       <View style={styles.left}>
         <Text style={styles.rightTitle} size={18}>
-          {t(id)}
+          {id == 'nav_home' ? '首页' : t(id)}
         </Text>
       </View>
       {headerComponents[id] ?? null}
