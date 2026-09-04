@@ -74,6 +74,7 @@ const styles = createStyle({
     flexShrink: 1,
   },
   contentContainer: {
-    paddingVertical: 8,
+    paddingTop: 8,
+    paddingBottom: 16,
   },
 })

@@ -8,6 +8,7 @@ import PlayInfo from './components/PlayInfo'
 import ControlBtn from './components/ControlBtn'
 import { createStyle } from '@/utils/tools'
 import { NAV_SHEAR_NATIVE_IDS } from '@/config/constant'
+import { BorderWidths } from '@/theme'
 
 export default memo(() => {
   const theme = useTheme()
@@ -27,16 +28,11 @@ const styles = createStyle({
   container: {
     flex: 0,
     width: '100%',
-    // paddingTop: progressContentPadding,
-    // marginTop: -progressContentPadding,
-    // backgroundColor: 'rgba(0, 0, 0, .1)',
-    paddingHorizontal: 15,
-    paddingBottom: 15,
-    paddingTop: 5,
-    // backgroundColor: AppColors.primary,
-    // backgroundColor: 'red',
+    paddingHorizontal: 20,
+    paddingBottom: 22,
+    paddingTop: 8,
     flexDirection: 'column',
-    borderTopWidth: 1,
+    borderTopWidth: BorderWidths.normal,
   },
   status: {
     marginTop: 10,

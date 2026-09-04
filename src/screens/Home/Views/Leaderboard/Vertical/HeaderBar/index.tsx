@@ -5,6 +5,7 @@ import { createStyle } from '@/utils/tools'
 import SourceSelector, { type SourceSelectorType } from './SourceSelector'
 import { useTheme } from '@/store/theme/hook'
 import ActiveListName, { type ActiveListNameType } from './ActiveListName'
+import { BorderWidths } from '@/theme'
 
 export interface HeaderBarProps {
   onShowBound: () => void
@@ -32,7 +33,13 @@ export default forwardRef<HeaderBarType, HeaderBarProps>(({ onShowBound, onSourc
   )
 
   return (
-    <View style={{ ...styles.currentList, backgroundColor: theme['c-content-background'] }}>
+    <View
+      style={{
+        ...styles.currentList,
+        backgroundColor: theme['c-content-background'],
+        borderBottomColor: theme['c-border-background'],
+      }}
+    >
       <SourceSelector ref={sourceSelectorRef} onSourceChange={onSourceChange} />
       <ActiveListName ref={activeListNameRef} onShowBound={onShowBound} />
     </View>
@@ -46,10 +53,6 @@ const styles = createStyle({
     zIndex: 2,
     alignItems: 'center',
     paddingHorizontal: 12,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
+    borderBottomWidth: BorderWidths.normal,
   },
 })

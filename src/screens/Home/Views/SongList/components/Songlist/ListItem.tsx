@@ -35,7 +35,7 @@ export default memo(
             <Image
               url={item.img}
               nativeID={`${NAV_SHEAR_NATIVE_IDS.songlistDetail_pic}_from_${item.id}`}
-              style={{ width: itemWidth, height: itemWidth, borderRadius: 12 }}
+              style={{ width: itemWidth, height: itemWidth, borderRadius: 14 }}
             />
             {showSource ? (
               <View style={styles.sourceLabelContainer}>
@@ -47,7 +47,7 @@ export default memo(
           </TouchableOpacity>
         </View>
         <TouchableOpacity activeOpacity={0.7} onPress={handlePress}>
-          <Text style={styles.listItemTitle} numberOfLines={2} size={14}>
+          <Text style={styles.listItemTitle} numberOfLines={2} size={13}>
             {item.name}
           </Text>
         </TouchableOpacity>
@@ -60,24 +60,24 @@ export default memo(
 
 const styles = createStyle({
   listItem: {
-    marginVertical: 10,
+    marginVertical: 8,
   },
   listItemImg: {
-    borderRadius: 12,
-    marginBottom: 8,
+    borderRadius: 14,
+    marginBottom: 10,
     overflow: 'hidden',
     ...Platform.select({
       ios: {
         shadowColor: '#000',
         shadowOffset: {
           width: 0,
-          height: 4,
+          height: 2,
         },
-        shadowOpacity: 0.12,
+        shadowOpacity: 0.06,
         shadowRadius: 8,
       },
       android: {
-        elevation: 4,
+        elevation: 2,
       },
     }),
   },
@@ -85,17 +85,17 @@ const styles = createStyle({
     position: 'absolute',
     top: 8,
     right: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    backgroundColor: 'rgba(0, 0, 0, 0.42)',
+    paddingHorizontal: 7,
+    paddingVertical: 3,
     borderRadius: 999,
   },
   sourceLabel: {
     fontWeight: '600',
-    letterSpacing: 0.5,
+    letterSpacing: 0.4,
   },
   listItemTitle: {
-    lineHeight: 20,
-    fontWeight: '500',
+    lineHeight: 19,
+    letterSpacing: 0.1,
   },
 })

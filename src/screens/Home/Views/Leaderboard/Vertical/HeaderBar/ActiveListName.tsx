@@ -29,10 +29,10 @@ export default forwardRef<ActiveListNameType, ActiveListNameProps>(({ onShowBoun
 
   return (
     <TouchableOpacity onPress={onShowBound} style={styles.currentList} activeOpacity={0.7}>
-      <Text numberOfLines={1} style={styles.currentListText} color={theme['c-font']} size={16}>
+      <Text numberOfLines={1} style={styles.currentListText} color={theme['c-font']} size={17}>
         {currentListName}
       </Text>
-      <Icon name="chevron-right" size={18} color={theme['c-font-label']} />
+      <Icon name="chevron-right" size={16} color={theme['c-font-label']} />
     </TouchableOpacity>
   )
 })
@@ -42,11 +42,12 @@ const styles = createStyle({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 8,
+    paddingLeft: 10,
   },
   currentListText: {
     flex: 1,
     fontWeight: '600',
+    letterSpacing: 0.2,
     paddingRight: 8,
   },
 })

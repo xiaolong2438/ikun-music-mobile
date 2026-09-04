@@ -28,11 +28,11 @@ export default ({ componentId }: { componentId: string }) => {
   // console.log('render pic')
 
   const style = useMemo(() => {
-    const imgWidth = Math.min(winWidth * 0.8, (winHeight - statusBarHeight - HEADER_HEIGHT) * 0.5)
+    const imgWidth = Math.min(winWidth * 0.78, (winHeight - statusBarHeight - HEADER_HEIGHT) * 0.5)
     return {
       width: imgWidth,
       height: imgWidth,
-      borderRadius: 2,
+      borderRadius: 24,
     }
   }, [statusBarHeight, winHeight, winWidth])
 
@@ -41,16 +41,10 @@ export default ({ componentId }: { componentId: string }) => {
       <View
         style={{
           ...styles.content,
-          elevation: animated ? 6 : 0,
-          backgroundColor: 'rgba(255,255,255,0.12)',
-          borderColor: 'rgba(255,255,255,0.2)',
+          elevation: animated ? 8 : 0,
         }}
       >
-        <Image
-          url={pic}
-          nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic}
-          style={{ ...style, borderRadius: style.width / 2 }}
-        />
+        <Image url={pic} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic} style={style} />
       </View>
     </View>
   )
@@ -65,8 +59,11 @@ const styles = createStyle({
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
   content: {
-    padding: 10,
-    borderRadius: 999,
-    borderWidth: 1,
+    borderRadius: 24,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 18,
   },
 })

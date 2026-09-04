@@ -20,7 +20,7 @@ const PrevBtn = ({ size }: { size: number }) => {
       activeOpacity={0.5}
       onPress={handlePlayPrev}
     >
-      <Icon name="prevMusic" color={theme['c-button-font']} rawSize={size * 0.7} />
+      <Icon name="prevMusic" color={theme['c-font-label']} rawSize={size * 0.62} />
     </TouchableOpacity>
   )
 }
@@ -35,7 +35,7 @@ const NextBtn = ({ size }: { size: number }) => {
       activeOpacity={0.5}
       onPress={handlePlayNext}
     >
-      <Icon name="nextMusic" color={theme['c-button-font']} rawSize={size * 0.7} />
+      <Icon name="nextMusic" color={theme['c-font-label']} rawSize={size * 0.62} />
     </TouchableOpacity>
   )
 }
@@ -89,21 +89,21 @@ const styles = createStyle({
     flexGrow: 1,
     flexShrink: 1,
     paddingHorizontal: '4%',
-    paddingVertical: 22,
+    paddingVertical: 18,
     // backgroundColor: 'rgba(0, 0, 0, .1)',
   },
   cotrolBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    shadowOpacity: 1,
-    textShadowRadius: 1,
   },
   playBtn: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 999,
-    shadowOpacity: 0.18,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 10,
+    elevation: 3,
   },
 })

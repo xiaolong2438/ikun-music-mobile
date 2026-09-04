@@ -6,6 +6,7 @@ import { createStyle } from '@/utils/tools'
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Icon } from '@/components/common/Icon'
+import { BorderWidths } from '@/theme'
 import HistorySearch, { type HistorySearchType } from './HistorySearch'
 import HotSearch, { type HotSearchType } from './HotSearch'
 
@@ -53,12 +54,20 @@ export default forwardRef<BlankViewType, BlankViewProps>(({ onSearch }, ref) => 
     isShowHotSearch || isShowHistorySearch ? (
       <ScrollView>
         <View style={styles.content}>
-          <View style={{ ...styles.welcomeCard, backgroundColor: theme['c-primary-alpha-900'] }}>
-            <View style={{ ...styles.welcomeIcon, backgroundColor: theme['c-primary-alpha-200'] }}>
-              <Icon name="search-2" color={theme['c-primary-font-active']} size={22} />
+          <View
+            style={{
+              ...styles.welcomeCard,
+              backgroundColor: theme['c-primary-alpha-900'],
+              borderColor: theme['c-border-background'],
+            }}
+          >
+            <View style={{ ...styles.welcomeIcon, backgroundColor: theme['c-primary-alpha-800'] }}>
+              <Icon name="search-2" color={theme['c-primary']} size={20} />
             </View>
             <View style={styles.welcomeText}>
-              <Text size={18}>{t('search__welcome')}</Text>
+              <Text style={styles.welcomeTitle} size={17}>
+                {t('search__welcome')}
+              </Text>
               <Text size={12} color={theme['c-font-label']}>
                 搜索歌曲、歌手和歌单
               </Text>
@@ -72,19 +81,15 @@ export default forwardRef<BlankViewType, BlankViewProps>(({ onSearch }, ref) => 
       </ScrollView>
     ) : (
       <View style={styles.welcome}>
-        <View style={{ ...styles.welcomeCard, backgroundColor: theme['c-primary-alpha-900'] }}>
-          <View style={{ ...styles.welcomeIcon, backgroundColor: theme['c-primary-alpha-200'] }}>
-            <Icon name="search-2" color={theme['c-primary-font-active']} size={28} />
-          </View>
-          <View style={styles.welcomeText}>
-            <Text size={22} color={theme['c-font-label']}>
-              {t('search__welcome')}
-            </Text>
-            <Text size={13} color={theme['c-font-label']}>
-              搜索歌曲、歌手和歌单
-            </Text>
-          </View>
+        <View style={{ ...styles.blankIcon, backgroundColor: theme['c-primary-alpha-900'] }}>
+          <Icon name="search-2" color={theme['c-primary']} size={26} />
         </View>
+        <Text style={styles.blankTitle} size={18} color={theme['c-font']}>
+          {t('search__welcome')}
+        </Text>
+        <Text size={13} color={theme['c-font-label']}>
+          搜索歌曲、歌手和歌单
+        </Text>
       </View>
     )
   ) : null
@@ -92,33 +97,52 @@ export default forwardRef<BlankViewType, BlankViewProps>(({ onSearch }, ref) => 
 
 const styles = createStyle({
   content: {
-    // paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingTop: 16,
+    paddingBottom: 20,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   welcome: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
+    padding: 32,
   },
   welcomeCard: {
     width: '100%',
-    padding: 18,
-    borderRadius: 18,
+    padding: 16,
+    borderRadius: 16,
+    borderWidth: BorderWidths.normal,
     flexDirection: 'row',
     alignItems: 'center',
   },
   welcomeIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 44,
+    height: 44,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 14,
   },
   welcomeText: {
     flex: 1,
+  },
+  welcomeTitle: {
+    fontWeight: '600',
+    marginBottom: 4,
+    letterSpacing: 0.2,
+  },
+  blankIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 18,
+  },
+  blankTitle: {
+    fontWeight: '600',
+    marginBottom: 8,
+    letterSpacing: 0.2,
   },
 })

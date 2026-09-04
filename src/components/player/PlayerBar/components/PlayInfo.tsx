@@ -23,12 +23,12 @@ export default ({ isHome }: { isHome: boolean }) => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.track, { backgroundColor: theme['c-primary-alpha-200'] }]}>
+      <View style={[styles.track, { backgroundColor: theme['c-primary-alpha-800'] }]}>
         <Animated.View
           style={[
             styles.progress,
             {
-              backgroundColor: theme['c-primary-light-100'],
+              backgroundColor: theme['c-primary'],
               width: widthInterpolated,
             },
           ]}
@@ -41,13 +41,13 @@ export default ({ isHome }: { isHome: boolean }) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 3,
-    marginTop: 8,
+    height: 2,
+    marginTop: 10,
     justifyContent: 'center',
   },
   track: {
     width: '100%',
-    height: 3,
+    height: 2,
     borderRadius: 999,
     overflow: 'hidden',
   },

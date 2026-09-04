@@ -9,14 +9,13 @@ import Image from '@/components/common/Image'
 import { useCallback } from 'react'
 import { setLoadErrorPicUrl, setMusicInfo } from '@/core/player/playInfo'
 
-const PIC_HEIGHT = scaleSizeH(56)
+const PIC_HEIGHT = scaleSizeH(52)
 
 const styles = StyleSheet.create({
   image: {
     width: PIC_HEIGHT,
     height: PIC_HEIGHT,
-    borderRadius: PIC_HEIGHT / 2,
-    borderWidth: 2,
+    borderRadius: 14,
   },
 })
 
@@ -46,7 +45,7 @@ export default ({ isHome }: { isHome: boolean }) => {
       <Image
         url={musicInfo.pic}
         nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic}
-        style={[styles.image, { borderColor: 'rgba(255,255,255,0.28)' }]}
+        style={styles.image}
         onError={handleError}
       />
     </TouchableOpacity>

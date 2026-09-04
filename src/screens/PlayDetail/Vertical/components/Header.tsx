@@ -23,7 +23,7 @@ const Title = () => {
 
   return (
     <View style={styles.titleContent}>
-      <Text numberOfLines={1} style={styles.title} size={15}>
+      <Text numberOfLines={1} style={styles.title} size={16}>
         {musicInfo.name}
       </Text>
       <Text numberOfLines={1} style={styles.artist} size={12} color={theme['c-font-label']}>
@@ -64,20 +64,23 @@ export default memo(() => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
     // justifyContent: 'center',
     height: '100%',
   },
   titleContent: {
     flex: 1,
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     // alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontWeight: '600',
+    letterSpacing: 0.2,
   },
   artist: {
-    marginTop: 1,
+    marginTop: 3,
+    letterSpacing: 0.1,
   },
   icon: {
     paddingLeft: 4,

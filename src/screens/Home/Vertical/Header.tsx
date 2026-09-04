@@ -1,7 +1,7 @@
 import { View, TouchableOpacity } from 'react-native'
 // import Button from '@/components/common/Button'
 // import { navigations } from '@/navigation'
-// import { BorderWidths } from '@/theme'
+import { BorderWidths } from '@/theme'
 import { useTheme } from '@/store/theme/hook'
 import { useNavActiveId, useStatusbarHeight } from '@/store/common/hook'
 import { useI18n } from '@/lang'
@@ -52,7 +52,7 @@ const LeftHeader = () => {
           <Icon color={theme['c-font']} name="menu" size={18} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.titleBtn} onPress={openMenu}>
-          <Text style={styles.leftTitle} size={18}>
+          <Text style={styles.leftTitle} size={20}>
             {t(id)}
           </Text>
         </TouchableOpacity>
@@ -92,7 +92,7 @@ const RightHeader = () => {
     >
       <View style={styles.left}>
         <TouchableOpacity style={styles.titleBtn} onPress={openMenu}>
-          <Text style={styles.rightTitle} size={18}>
+          <Text style={styles.rightTitle} size={20}>
             {t(id)}
           </Text>
         </TouchableOpacity>
@@ -125,29 +125,28 @@ const Header = () => {
 const styles = createStyle({
   container: {
     // width: '100%',
-    paddingRight: 5,
+    paddingRight: 12,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: 'rgba(0,0,0,0.1)',
     zIndex: 10,
-    borderBottomWidth: 1,
+    borderBottomWidth: BorderWidths.normal,
   },
   left: {
     flex: 1,
     flexDirection: 'row',
-    paddingLeft: 5,
+    paddingLeft: 12,
     alignItems: 'center',
     height: '100%',
   },
   btn: {
-    // flex: 1,
-    width: HEADER_HEIGHT,
+    width: 40,
+    height: 40,
     // backgroundColor: 'rgba(0,0,0,0.1)',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
-    borderRadius: 22,
+    borderRadius: 14,
   },
   titleBtn: {
     flex: 1,
@@ -157,11 +156,15 @@ const styles = createStyle({
   },
   leftTitle: {
     paddingLeft: 14,
-    paddingRight: 16,
+    paddingRight: 12,
+    fontWeight: '600',
+    letterSpacing: 0.2,
   },
   rightTitle: {
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingLeft: 2,
+    paddingRight: 12,
+    fontWeight: '600',
+    letterSpacing: 0.2,
   },
 })
 

@@ -33,7 +33,7 @@ export default ({ isHome }: { isHome: boolean }) => {
       activeOpacity={0.7}
     >
       <View style={styles.textContainer}>
-        <Text style={styles.title} color={theme['c-font']} numberOfLines={1} size={14}>
+        <Text style={styles.title} color={theme['c-font']} numberOfLines={1} size={15}>
           {musicInfo.name || ''}
         </Text>
         {singer ? (
@@ -49,7 +49,6 @@ export default ({ isHome }: { isHome: boolean }) => {
 const styles = createStyle({
   container: {
     width: '100%',
-    paddingHorizontal: 2,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -58,10 +57,11 @@ const styles = createStyle({
     flexDirection: 'column',
   },
   title: {
-    fontWeight: '500',
-    marginBottom: 2,
+    fontWeight: '600',
+    letterSpacing: 0.2,
+    marginBottom: 3,
   },
   artist: {
-    opacity: 0.7,
+    letterSpacing: 0.1,
   },
 })

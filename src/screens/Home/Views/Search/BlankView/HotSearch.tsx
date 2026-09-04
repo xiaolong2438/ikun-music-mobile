@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import { type Source, type InitState } from '@/store/hotSearch/state'
 import Button from '@/components/common/Button'
 import { getList } from '@/core/hotSearch'
@@ -30,13 +30,12 @@ const ListItem = ({
       style={{
         ...styles.button,
         backgroundColor: theme['c-button-background'],
-        borderColor: theme['c-border-background'],
       }}
       onPress={() => {
         onSearch(keyword)
       }}
     >
-      <Text color={theme['c-button-font']} size={13}>
+      <Text color={theme['c-font']} size={13}>
         {keyword}
       </Text>
     </Button>
@@ -48,7 +47,7 @@ export default forwardRef<HotSearchType, ListProps>((props, ref) => {
   // const listRef = useRef<MusicListType>(null)
   const [list, setList] = useState<List>([])
   const t = useI18n()
-  // const theme = useTheme()
+  const theme = useTheme()
 
   const isUnmountedRef = useRef(false)
   useEffect(() => {
@@ -72,8 +71,8 @@ export default forwardRef<HotSearchType, ListProps>((props, ref) => {
   )
 
   return list.length ? (
-    <ScrollView>
-      <Text style={styles.title} size={16}>
+    <View>
+      <Text style={styles.title} size={13} color={theme['c-font-label']}>
         {t('search_hot_search')}
       </Text>
       <View style={styles.list}>
@@ -81,32 +80,27 @@ export default forwardRef<HotSearchType, ListProps>((props, ref) => {
           <ListItem keyword={keyword} key={keyword} onSearch={props.onSearch} />
         ))}
       </View>
-    </ScrollView>
+    </View>
   ) : null
 })
 
 const styles = createStyle({
   title: {
-    // paddingLeft: 15,
-    paddingTop: 15,
-    // paddingBottom: 10,
+    paddingTop: 24,
+    paddingBottom: 4,
+    fontWeight: '600',
+    letterSpacing: 0.6,
   },
   list: {
-    // paddingLeft: 15,
-    // paddingRight: 15,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // paddingBottom: 15,
   },
   button: {
     textAlign: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: 999,
-    borderWidth: 1,
-    marginRight: 10,
-    marginTop: 8,
+    marginRight: 8,
+    marginTop: 10,
   },
 })

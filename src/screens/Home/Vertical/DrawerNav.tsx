@@ -12,6 +12,7 @@ import type { InitState } from '@/store/common/state'
 import { exitApp, setNavActiveId } from '@/core/common'
 import Text from '@/components/common/Text'
 import { useSettingValue } from '@/store/setting/hook'
+import { BorderWidths } from '@/theme'
 
 const styles = createStyle({
   container: {
@@ -21,41 +22,58 @@ const styles = createStyle({
     // padding: 10,
   },
   header: {
-    paddingTop: 40,
-    paddingBottom: 50,
+    paddingTop: 36,
+    paddingBottom: 32,
+    paddingHorizontal: 24,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   headerText: {
-    textAlign: 'center',
-    marginLeft: 16,
+    marginLeft: 12,
+    fontWeight: '600',
+    letterSpacing: 0.4,
   },
   menus: {
     flex: 1,
   },
   list: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 4,
+    paddingBottom: 12,
   },
   menuItem: {
     flexDirection: 'row',
-    marginHorizontal: 10,
-    marginVertical: 3,
-    paddingTop: 13,
-    paddingBottom: 13,
-    paddingLeft: 15,
-    paddingRight: 15,
+    marginHorizontal: 12,
+    marginVertical: 2,
+    paddingVertical: 14,
+    paddingLeft: 16,
+    paddingRight: 16,
     alignItems: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
   },
   iconContent: {
     width: 24,
     alignItems: 'center',
   },
   text: {
-    paddingLeft: 20,
-    // fontWeight: '500',
+    flex: 1,
+    paddingLeft: 16,
+    letterSpacing: 0.2,
+  },
+  activeText: {
+    flex: 1,
+    paddingLeft: 16,
+    fontWeight: '600',
+    letterSpacing: 0.2,
+  },
+  activeDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 999,
+  },
+  footer: {
+    paddingTop: 8,
+    paddingBottom: 12,
+    borderTopWidth: BorderWidths.normal,
   },
 })
 
@@ -63,15 +81,10 @@ const Header = () => {
   const theme = useTheme()
   const statusBarHeight = useStatusbarHeight()
   return (
-    <View
-      style={{
-        paddingTop: statusBarHeight,
-        backgroundColor: theme['c-primary-light-700-alpha-500'],
-      }}
-    >
+    <View style={{ paddingTop: statusBarHeight }}>
       <View style={styles.header}>
-        <Icon name="logo" color={theme['c-primary-dark-100-alpha-300']} size={28} />
-        <Text style={styles.headerText} size={28} color={theme['c-primary-dark-100-alpha-300']}>
+        <Icon name="logo" color={theme['c-primary']} size={26} />
+        <Text style={styles.headerText} size={20} color={theme['c-font']}>
           IKUN Music
         </Text>
       </View>
@@ -97,15 +110,17 @@ const MenuItem = ({
   return activeId == id ? (
     <View style={{ ...styles.menuItem, backgroundColor: theme['c-primary-alpha-900'] }}>
       <View style={styles.iconContent}>
-        <Icon name={icon} size={20} color={theme['c-primary-font-active']} />
+        <Icon name={icon} size={20} color={theme['c-primary']} />
       </View>
-      <Text style={styles.text} color={theme['c-primary-font']}>
+      <Text style={styles.activeText} color={theme['c-primary-font-active']}>
         {t(id)}
       </Text>
+      <View style={{ ...styles.activeDot, backgroundColor: theme['c-primary'] }} />
     </View>
   ) : (
     <TouchableOpacity
       style={styles.menuItem}
+      activeOpacity={0.7}
       onPress={() => {
         onPress(id)
       }}
@@ -113,7 +128,9 @@ const MenuItem = ({
       <View style={styles.iconContent}>
         <Icon name={icon} size={20} color={theme['c-font-label']} />
       </View>
-      <Text style={styles.text}>{t(id)}</Text>
+      <Text style={styles.text} color={theme['c-font']}>
+        {t(id)}
+      </Text>
     </TouchableOpacity>
   )
 }
@@ -155,8 +172,12 @@ export default memo(() => {
         </View>
       </ScrollView>
 
-      {showBackBtn ? <MenuItem id="back_home" icon="home" onPress={handlePress} /> : null}
-      {showExitBtn ? <MenuItem id="nav_exit" icon="exit2" onPress={handlePress} /> : null}
+      {showBackBtn || showExitBtn ? (
+        <View style={{ ...styles.footer, borderTopColor: theme['c-border-background'] }}>
+          {showBackBtn ? <MenuItem id="back_home" icon="home" onPress={handlePress} /> : null}
+          {showExitBtn ? <MenuItem id="nav_exit" icon="exit2" onPress={handlePress} /> : null}
+        </View>
+      ) : null}
     </View>
   )
 })

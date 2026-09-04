@@ -26,7 +26,6 @@ const ListItem = ({
       style={{
         ...styles.button,
         backgroundColor: theme['c-button-background'],
-        borderColor: theme['c-border-background'],
       }}
       onPress={() => {
         onSearch(keyword)
@@ -35,7 +34,7 @@ const ListItem = ({
         onRemove(keyword)
       }}
     >
-      <Text color={theme['c-button-font']} size={13}>
+      <Text color={theme['c-font']} size={13}>
         {keyword}
       </Text>
     </Button>
@@ -93,9 +92,11 @@ export default forwardRef<HistorySearchType, HistorySearchProps>((props, ref) =>
   return list.length ? (
     <View>
       <View style={styles.titleContent}>
-        <Text size={16}>{t('search_history_search')}</Text>
-        <TouchableOpacity onPress={handleClear} style={styles.titleBtn}>
-          <Icon name="eraser" color={theme['c-300']} size={14} />
+        <Text style={styles.title} size={13} color={theme['c-font-label']}>
+          {t('search_history_search')}
+        </Text>
+        <TouchableOpacity onPress={handleClear} style={styles.titleBtn} activeOpacity={0.7}>
+          <Icon name="eraser" color={theme['c-font-label']} size={14} />
         </TouchableOpacity>
       </View>
       <View style={styles.list}>
@@ -114,34 +115,29 @@ export default forwardRef<HistorySearchType, HistorySearchProps>((props, ref) =>
 
 const styles = createStyle({
   titleContent: {
-    paddingTop: 15,
+    paddingTop: 24,
+    paddingBottom: 4,
     flexDirection: 'row',
     alignItems: 'center',
   },
   title: {
-    // paddingLeft: 15,
-    // paddingBottom: 5,
+    fontWeight: '600',
+    letterSpacing: 0.6,
   },
   titleBtn: {
-    marginLeft: 10,
-    padding: 5,
+    marginLeft: 8,
+    padding: 4,
   },
   list: {
-    // paddingLeft: 15,
-    // paddingRight: 15,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // paddingBottom: 15,
   },
   button: {
     textAlign: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: 999,
-    borderWidth: 1,
-    marginRight: 10,
-    marginTop: 8,
+    marginRight: 8,
+    marginTop: 10,
   },
 })
