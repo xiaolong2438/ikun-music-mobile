@@ -53,11 +53,11 @@ const LeftHeader = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.titleBtn} onPress={openMenu}>
           <Text style={styles.leftTitle} size={20}>
-            {t(id)}
+            {id == 'nav_search' ? '首页' : t(id)}
           </Text>
         </TouchableOpacity>
       </View>
-      {headerComponents[id] ?? null}
+      {id == 'nav_search' ? null : (headerComponents[id] ?? null)}
 
       {/* <TouchableOpacity style={styles.btn} onPress={openSetting}>
         <Icon style={{ ...styles.btnText, color: theme['c-font'] }} name="setting" size={styles.btnText.fontSize} />
@@ -93,11 +93,11 @@ const RightHeader = () => {
       <View style={styles.left}>
         <TouchableOpacity style={styles.titleBtn} onPress={openMenu}>
           <Text style={styles.rightTitle} size={20}>
-            {t(id)}
+            {id == 'nav_search' ? '首页' : t(id)}
           </Text>
         </TouchableOpacity>
       </View>
-      {headerComponents[id] ?? null}
+      {id == 'nav_search' ? null : (headerComponents[id] ?? null)}
       <TouchableOpacity
         style={{ ...styles.btn, backgroundColor: theme['c-primary-alpha-900'] }}
         onPress={openMenu}

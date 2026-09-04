@@ -5,6 +5,7 @@ import SongList from '../Views/SongList'
 import Mylist from '../Views/Mylist'
 import Leaderboard from '../Views/Leaderboard'
 import Setting from '../Views/Setting'
+import HomeFeed from '../Views/HomeFeed'
 import commonState, { type InitState as CommonState } from '@/store/common/state'
 import { createStyle } from '@/utils/tools'
 import PagerView, {
@@ -276,8 +277,8 @@ const Main = () => {
         scrollEnabled={settingState.setting['common.homePageScroll']}
         style={styles.pagerView}
       >
-        <View collapsable={false} key="nav_search" style={styles.pageStyle}>
-          <SearchPage />
+        <View key="home-feed" collapsable={false} style={styles.pageStyle}>
+          <HomeFeed />
         </View>
         <View collapsable={false} key="nav_songlist" style={styles.pageStyle}>
           <SongListPage />
