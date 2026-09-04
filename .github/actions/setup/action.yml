@@ -21,7 +21,9 @@ runs:
 
     - name: Accept Android SDK licenses
       shell: bash
-      run: yes | sdkmanager --licenses
+      run: |
+        set +o pipefail
+        yes 2>/dev/null | sdkmanager --licenses
 
     - name: Install Android SDK components
       shell: bash
