@@ -12,7 +12,12 @@ export interface ListItemProps {
   index: number
   longPressIndex: number
   activeId: string
-  onShowMenu: (id: string, name: string, index: number, position: { x: number; y: number; w: number; h: number }) => void
+  onShowMenu: (
+    id: string,
+    name: string,
+    index: number,
+    position: { x: number; y: number; w: number; h: number }
+  ) => void
   onBoundChange: (item: BoardItem) => void
 }
 
@@ -47,7 +52,13 @@ export default ({
       ref={buttonRef}
       style={{
         ...styles.button,
-        backgroundColor: index == longPressIndex ? theme['c-button-background-active'] : undefined,
+        backgroundColor:
+          index == longPressIndex
+            ? theme['c-button-background-active']
+            : active
+              ? theme['c-primary-alpha-100']
+              : theme['c-button-background'],
+        borderColor: active ? theme['c-primary'] : theme['c-200'],
       }}
       key={item.id}
       onLongPress={setPosition}
@@ -55,18 +66,25 @@ export default ({
         onBoundChange(item)
       }}
     >
-      {active ? (
-        <Icon
-          style={styles.listActiveIcon}
-          name="chevron-right"
-          size={12}
-          color={theme['c-primary-font']}
-        />
-      ) : null}
+      <View
+        style={{
+          ...styles.activeIndicator,
+          backgroundColor: active ? theme['c-primary'] : 'transparent',
+        }}
+      />
 
       <View style={styles.listItemContent}>
-        <View style={{ ...styles.coverWrapper, backgroundColor: theme['c-200'] }}>
-          <Text style={styles.coverText} size={20} color={theme['c-500']}>
+        <View
+          style={{
+            ...styles.coverWrapper,
+            backgroundColor: active ? theme['c-primary'] : theme['c-200'],
+          }}
+        >
+          <Text
+            style={styles.coverText}
+            size={20}
+            color={active ? theme['c-primary-font-active'] : theme['c-500']}
+          >
             {index + 1}
           </Text>
         </View>
@@ -83,21 +101,26 @@ export default ({
           </Text>
 
           {item.desc ? (
-            <Text style={styles.listDesc} size={12} color={theme['c-500']}>
+            <Text style={styles.listDesc} size={12} color={theme['c-500']} numberOfLines={2}>
               {item.desc}
             </Text>
           ) : null}
         </View>
 
         <View style={styles.listRight}>
-          <Text style={styles.listCount} size={13} color={theme['c-400']}>
-            {item.playCount ? `${item.playCount}万` : ''}
-          </Text>
+          {item.playCount ? (
+            <Text style={styles.listCount} size={13} color={theme['c-400']}>
+              {`${item.playCount}万`}
+            </Text>
+          ) : null}
           {item.isHot && (
             <View style={{ ...styles.hotTag, backgroundColor: theme['c-primary'] + '25' }}>
-              <Text size={11} color={theme['c-primary']}>热门</Text>
+              <Text size={11} color={theme['c-primary']}>
+                热门
+              </Text>
             </View>
           )}
+          {active ? <Icon name="chevron-right" size={16} color={theme['c-primary']} /> : null}
         </View>
       </View>
     </Button>
@@ -106,16 +129,26 @@ export default ({
 
 const styles = createStyle({
   button: {
-    paddingLeft: 12,
-    paddingRight: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 80,
-    borderRadius: 12,
+    minHeight: 88,
     marginHorizontal: 12,
-    marginVertical: 4,
+    marginVertical: 5,
+    paddingVertical: 12,
+    paddingRight: 14,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    borderRadius: 14,
+    borderWidth: 1,
+    overflow: 'hidden',
+    elevation: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 3,
+  },
+  activeIndicator: {
+    width: 4,
+    borderRadius: 4,
+    marginRight: 10,
   },
   listItemContent: {
     flex: 1,
@@ -137,6 +170,7 @@ const styles = createStyle({
   },
   listContent: {
     flex: 1,
+    minWidth: 0,
     justifyContent: 'center',
   },
   listName: {
@@ -149,6 +183,8 @@ const styles = createStyle({
     letterSpacing: 0.1,
   },
   listRight: {
+    minWidth: 44,
+    marginLeft: 8,
     alignItems: 'flex-end',
     justifyContent: 'center',
     gap: 6,
@@ -158,13 +194,8 @@ const styles = createStyle({
     opacity: 0.7,
   },
   hotTag: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 999,
-  },
-  listActiveIcon: {
-    marginLeft: 4,
-    marginRight: 4,
-    textAlign: 'center',
   },
 })

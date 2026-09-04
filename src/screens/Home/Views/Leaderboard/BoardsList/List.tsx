@@ -45,7 +45,11 @@ export default forwardRef<ListType, ListProps>(({ onBoundChange, onShowMenu }, r
   }
 
   return (
-    <ScrollView style={styles.scrollView} keyboardShouldPersistTaps="always">
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+      keyboardShouldPersistTaps="always"
+    >
       <View>
         {list.map((item, index) => {
           return (
@@ -68,5 +72,8 @@ export default forwardRef<ListType, ListProps>(({ onBoundChange, onShowMenu }, r
 const styles = createStyle({
   scrollView: {
     flexShrink: 1,
+  },
+  contentContainer: {
+    paddingVertical: 8,
   },
 })
